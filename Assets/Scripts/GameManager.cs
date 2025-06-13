@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text gameOverText;
     [SerializeField] private Text scoreText;
     [SerializeField] private Text livesText;
+    [SerializeField] private Child[] children;
 
     public int score { get; private set; } = 0;
     public int lives { get; private set; } = 3;
@@ -77,6 +78,11 @@ public class GameManager : MonoBehaviour
             ghosts[i].ResetState();
         }
 
+        for (int i = 0; i < children.Length; i++)
+        {
+            children[i].ResetState();
+        }
+
         pacman.ResetState();
     }
 
@@ -128,6 +134,12 @@ public class GameManager : MonoBehaviour
         ghostMultiplier++;
     }
 
+    public void ChildEaten(Child child)
+    {
+        child.gameObject.SetActive(false);
+        SetScore(score + child.points);
+    }
+
     public void PelletEaten(Pellet pellet)
     {
         pellet.gameObject.SetActive(false);
@@ -170,5 +182,4 @@ public class GameManager : MonoBehaviour
     {
         ghostMultiplier = 1;
     }
-
 }

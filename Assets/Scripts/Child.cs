@@ -9,6 +9,7 @@ public class Child : MonoBehaviour
     public float speed = 2.0f;
     public Transform pacman; // 吃豆人的Transform
     public float detectionRadius = 5f; // 检测吃豆人的范围
+    public int points = 100; // 被吃掉时的分数
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class Child : MonoBehaviour
 
     public void ResetState()
     {
+        gameObject.SetActive(true);
         this.transform.position = this.startingNode.transform.position;
         this.movement.SetDirection(Vector2.right);
     }
@@ -68,6 +70,15 @@ public class Child : MonoBehaviour
 
                 movement.SetDirection(node.availableDirections[index]);
             }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
+        {
+            // 被吃豆人吃掉
+            GameManager.Instance.ChildEaten(this);
         }
     }
 }
