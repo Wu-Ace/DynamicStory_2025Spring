@@ -20,16 +20,20 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
             DestroyImmediate(gameObject);
-        } else {
+        }
+        else
+        {
             Instance = this;
         }
     }
 
     private void OnDestroy()
     {
-        if (Instance == this) {
+        if (Instance == this)
+        {
             Instance = null;
         }
     }
@@ -41,7 +45,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (lives <= 0 && Input.anyKeyDown) {
+        if (lives <= 0 && Input.anyKeyDown)
+        {
             NewGame();
         }
     }
@@ -57,7 +62,8 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.enabled = false;
 
-        foreach (Transform pellet in pellets) {
+        foreach (Transform pellet in pellets)
+        {
             pellet.gameObject.SetActive(true);
         }
 
@@ -66,7 +72,8 @@ public class GameManager : MonoBehaviour
 
     private void ResetState()
     {
-        for (int i = 0; i < ghosts.Length; i++) {
+        for (int i = 0; i < ghosts.Length; i++)
+        {
             ghosts[i].ResetState();
         }
 
@@ -77,7 +84,8 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.enabled = true;
 
-        for (int i = 0; i < ghosts.Length; i++) {
+        for (int i = 0; i < ghosts.Length; i++)
+        {
             ghosts[i].gameObject.SetActive(false);
         }
 
@@ -102,9 +110,12 @@ public class GameManager : MonoBehaviour
 
         SetLives(lives - 1);
 
-        if (lives > 0) {
+        if (lives > 0)
+        {
             Invoke(nameof(ResetState), 3f);
-        } else {
+        }
+        else
+        {
             GameOver();
         }
     }
@@ -132,7 +143,8 @@ public class GameManager : MonoBehaviour
 
     public void PowerPelletEaten(PowerPellet pellet)
     {
-        for (int i = 0; i < ghosts.Length; i++) {
+        for (int i = 0; i < ghosts.Length; i++)
+        {
             ghosts[i].frightened.Enable(pellet.duration);
         }
 
@@ -141,11 +153,12 @@ public class GameManager : MonoBehaviour
         Invoke(nameof(ResetGhostMultiplier), pellet.duration);
     }
 
-    private bool HasRemainingPellets()
+    public bool HasRemainingPellets()
     {
         foreach (Transform pellet in pellets)
         {
-            if (pellet.gameObject.activeSelf) {
+            if (pellet.gameObject.activeSelf)
+            {
                 return true;
             }
         }
