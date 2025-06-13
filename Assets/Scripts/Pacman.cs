@@ -41,6 +41,14 @@ public class Pacman : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.forward);
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Home"))
+        {
+            Debug.Log("Pacman碰到了Home层！");
+        }
+    }
+
     public void ResetState()
     {
         enabled = true;
@@ -60,5 +68,4 @@ public class Pacman : MonoBehaviour
         deathSequence.enabled = true;
         deathSequence.Restart();
     }
-
 }

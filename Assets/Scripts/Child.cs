@@ -80,5 +80,9 @@ public class Child : MonoBehaviour
             // 被吃豆人吃掉
             GameManager.Instance.ChildEaten(this);
         }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Home"))
+        {
+            Debug.Log("Child碰到了Home层！");
+        }
     }
 }
