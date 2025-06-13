@@ -9,6 +9,8 @@ public class IntroManager : MonoBehaviour
     private bool hasPlayedIntro = false;
     private bool hasWon = false;
 
+    public bool DeveloperMode_Win = false;
+
     private void Start()
     {
         // Ensure the timeline doesn't play at the start
@@ -27,9 +29,19 @@ public class IntroManager : MonoBehaviour
             if (!gameManager.HasRemainingPellets())
             {
                 hasWon = true;
-                PlayCameraTimeline();
             }
         }
+
+        if (DeveloperMode_Win)
+        {
+            hasWon = true;
+        }
+
+        if (hasWon)
+        {
+            PlayCameraTimeline();
+        }
+
     }
 
     private void PlayCameraTimeline()
