@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text livesText;
     [SerializeField] private Child[] children; // 所有小孩的引用
     [SerializeField] private Transform home; // Home物体的Transform
+    [SerializeField] private Door[] doors; // 所有门的引用
 
     public int score { get; private set; } = 0;
     public int lives { get; private set; } = 3;
@@ -70,6 +71,15 @@ public class GameManager : MonoBehaviour
         foreach (Transform pellet in pellets)
         {
             pellet.gameObject.SetActive(true);
+        }
+
+        // 重置所有门的状态
+        foreach (Door door in doors)
+        {
+            if (door != null)
+            {
+                door.Lock();
+            }
         }
 
         ResetState();
@@ -151,6 +161,11 @@ public class GameManager : MonoBehaviour
         child.gameObject.SetActive(false);
         SetScore(score + child.points);
         currentChildIndex++;
+    }
+
+    public void KeyEaten(Key key)
+    {
+        SetScore(score + key.points);
     }
 
     private bool HasActiveChild()
