@@ -33,10 +33,9 @@ public class Child : MonoBehaviour
         Node node = other.GetComponent<Node>();
         if (node != null)
         {
-            // 检查是否在吃豆人附近
             if (pacman != null && Vector2.Distance(transform.position, pacman.position) < detectionRadius)
             {
-                // 选择远离吃豆人的方向
+                // 躲避模式：选择远离吃豆人的方向
                 Vector2 direction = Vector2.zero;
                 float maxDistance = float.MinValue;
 
