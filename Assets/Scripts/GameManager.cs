@@ -12,10 +12,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text gameOverText;
     [SerializeField] private Text scoreText;
     [SerializeField] private Text livesText;
-    [SerializeField] private Child[] children;
+    [SerializeField] private Child[] children; // 所有小孩的引用
+    [SerializeField] private Transform home; // Home物体的Transform
 
     public int score { get; private set; } = 0;
     public int lives { get; private set; } = 3;
+    private int currentChildIndex = 0; // 当前小孩的索引
+    private bool isPacmanInHome = false; // 吃豆人是否在Home中
 
     private int ghostMultiplier = 1;
 
@@ -56,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         SetScore(0);
         SetLives(3);
+        currentChildIndex = 0;
         NewRound();
     }
 
@@ -78,9 +82,17 @@ public class GameManager : MonoBehaviour
             ghosts[i].ResetState();
         }
 
+        // 重置所有小孩的状态
         for (int i = 0; i < children.Length; i++)
         {
-            children[i].ResetState();
+            children[i].gameObject.SetActive(false);
+        }
+
+        // 激活第一个小孩
+        if (currentChildIndex < children.Length)
+        {
+            children[currentChildIndex].gameObject.SetActive(true);
+            children[currentChildIndex].ResetState();
         }
 
         pacman.ResetState();
@@ -138,6 +150,35 @@ public class GameManager : MonoBehaviour
     {
         child.gameObject.SetActive(false);
         SetScore(score + child.points);
+        currentChildIndex++;
+    }
+
+    private bool HasActiveChild()
+    {
+        for (int i = 0; i < children.Length; i++)
+        {
+            if (children[i].gameObject.activeSelf)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void PacmanEnteredHome()
+    {
+        isPacmanInHome = true;
+        // 只有在没有活跃小孩且还有剩余小孩时才激活新小孩
+        if (!HasActiveChild() && currentChildIndex < children.Length)
+        {
+            children[currentChildIndex].gameObject.SetActive(true);
+            children[currentChildIndex].ResetState();
+        }
+    }
+
+    public void PacmanLeftHome()
+    {
+        isPacmanInHome = false;
     }
 
     public void PelletEaten(Pellet pellet)
