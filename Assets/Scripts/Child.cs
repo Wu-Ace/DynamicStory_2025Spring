@@ -10,6 +10,7 @@ public class Child : MonoBehaviour
     public Transform pacman; // 吃豆人的Transform
     public float detectionRadius = 5f; // 检测吃豆人的范围
     public int points = 100; // 被吃掉时的分数
+    public int childIndex; // 小孩的序号（1, 2, 3）
 
     private void Awake()
     {

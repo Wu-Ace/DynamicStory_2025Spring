@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; } = 3;
     private int currentChildIndex = 0; // 当前小孩的索引
     private bool isPacmanInHome = false; // 吃豆人是否在Home中
+    private bool lastChildEaten = false; // 最后一个小孩是否被吃掉
 
     private int ghostMultiplier = 1;
 
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
         SetScore(0);
         SetLives(3);
         currentChildIndex = 0;
+        lastChildEaten = false;
         NewRound();
     }
 
@@ -161,6 +163,13 @@ public class GameManager : MonoBehaviour
         child.gameObject.SetActive(false);
         SetScore(score + child.points);
         currentChildIndex++;
+
+        // 检查是否是最后一个小孩
+        if (currentChildIndex >= children.Length)
+        {
+            lastChildEaten = true;
+            Debug.Log("最后一个小孩被吃掉");
+        }
     }
 
     public void KeyEaten(Key key)
@@ -183,8 +192,15 @@ public class GameManager : MonoBehaviour
     public void PacmanEnteredHome()
     {
         isPacmanInHome = true;
-        // 只有在没有活跃小孩且还有剩余小孩时才激活新小孩
-        if (!HasActiveChild() && currentChildIndex < children.Length)
+
+        // 如果最后一个小孩被吃掉，且吃豆人回到home，则切换关卡
+        if (lastChildEaten && LevelManager.Instance != null)
+        {
+            Debug.Log("最后一个小孩被吃掉，且吃豆人回到home，则切换关卡");
+            LevelManager.Instance.CheckChildLevelComplete();
+        }
+        // 否则，如果没有活跃的小孩且还有剩余小孩，则激活新小孩
+        else if (!HasActiveChild() && currentChildIndex < children.Length)
         {
             children[currentChildIndex].gameObject.SetActive(true);
             children[currentChildIndex].ResetState();
