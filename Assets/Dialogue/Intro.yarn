@@ -1,7 +1,18 @@
 ﻿title: Intro
-tags:
 ---
-wujunyi:你好
-huqingxi:me too
-test2
+<<lineWithDuration "B" "欸，你晚饭喝那汤了吗？比昨天好点，但还是淡得跟水一样。" 5.5>>
+<<lineWithDuration "A" "少油少盐是标准配置啦，健康第一～不过你要是想吃点味重的，下次家属探视可以带点咸菜。" 7>>
+<<lineWithDuration "C" "前几天我妹带了点辣酱来，我藏在床头柜里了，要不要？晚上偷偷加一点。" 6.5>>
+<<lineWithDuration "B" "好！晚上给我一点！" 4.5>>
+<<wait 2.5>>
+<<lineWithDuration "B" "他还是一动不动……你们发现没，从我们到这病房来，他每天都这么玩，一句话也不说。" 6>>
+<<lineWithDuration "C" "医生不是说嘛，玩点小游戏能放松，转移注意力。" 4.5>>
+<<lineWithDuration "B" "这倒是……我们这医院，不还评上了市里最幸福的医院吗？" 5>>
+<<lineWithDuration "A" "你说得像广告词似的——‘欢迎来到最幸福的医院’？" 5.5>>
+<<lineWithDuration "C" "在这里，没有眼泪～没有压力～只有快乐和温暖～" 6>>
+<<lineWithDuration "A" "不过……你们听过那个传言吗？就关于这家医院的。" 5.5>>
+<<lineWithDuration "B" "哪个？又是那种‘地下楼层关着奇怪东西’的怪谈？" 5>>
+<<lineWithDuration "A" "不是，我听一个转院过来的病友说……他说这地方能‘让人真正忘掉痛苦’。" 6.5>>
+<<lineWithDuration "C" "怎么忘？" 2>>
+<<lineWithDuration "A" "听说啊，从前医院里来过一个人……可以‘吃掉’别人的记忆。只要你不想要了，他就能帮你吞下去。" 8>>
 ===

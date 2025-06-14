@@ -11,12 +11,10 @@ public class IntroDiologueTrigger : MonoBehaviour
     // 比如这是你的触发条件
     public bool conditionMet = false;
 
-    void Update()
-    {
-        // 示例条件：按下 E 键且条件成立
-        if (Input.GetKeyDown(KeyCode.E) && !dialogueRunner.IsDialogueRunning)
-        {
-            dialogueRunner.StartDialogue(nodeName);
-        }
-    }
+    public DialogueRunner runner;
+
+void Start() {
+    runner.StartDialogue("Intro");
+}
+
 }
