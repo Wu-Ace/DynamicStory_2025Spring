@@ -4,27 +4,24 @@ using UnityEngine.Tilemaps;
 public class Key : MonoBehaviour
 {
     public int points = 200; // 吃到钥匙的分数
-    public Vector3Int targetDoorPosition; // 目标门在Tilemap中的位置
+    [SerializeField] private GameObject correspondingDoor; // 对应的门
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log($"Key被触发，触发物体层：{other.gameObject.layer}，名称：{other.gameObject.name}");
+
         if (other.gameObject.layer == LayerMask.NameToLayer("Pacman"))
         {
-            // 查找并解锁对应位置的门
-            Door[] doors = FindObjectsOfType<Door>();
-            foreach (Door door in doors)
-            {
-                if (door.tilePosition == targetDoorPosition)
-                {
-                    door.Unlock();
-                    break;
-                }
-            }
+            Debug.Log("检测到Pacman层，准备处理碰撞");
 
             // 增加分数
             GameManager.Instance.KeyEaten(this);
 
-            // 禁用钥匙
+            // 禁用钥匙和对应的门
+            if (correspondingDoor != null)
+            {
+                correspondingDoor.SetActive(false);
+            }
             gameObject.SetActive(false);
         }
     }
