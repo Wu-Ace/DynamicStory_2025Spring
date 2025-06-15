@@ -2,7 +2,8 @@
   "projectFileVersion": 2,
   "sourceFiles": [
     "Room.yarn",
-    "Level1.yarn"
+    "Level1.yarn",
+    "Level1End.yarn"
   ],
   "excludeFiles": [
     "**/*~/*"
