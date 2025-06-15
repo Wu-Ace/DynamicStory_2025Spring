@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Child[] children; // 所有小孩的引用
     [SerializeField] private Transform home; // Home物体的Transform
     [SerializeField] private Door[] doors; // 所有门的引用
+    [SerializeField] private SpiritFollow spiritFollow; // SpiritFollow组件的引用
 
     public int score { get; private set; } = 0;
     public int lives { get; private set; } = 3;
@@ -164,6 +165,12 @@ public class GameManager : MonoBehaviour
         SetScore(score + child.points);
         currentChildIndex++;
 
+        // 显示精灵
+        if (spiritFollow != null)
+        {
+            spiritFollow.ShowSpirit();
+        }
+
         // 检查是否是最后一个小孩
         if (currentChildIndex >= children.Length)
         {
@@ -193,6 +200,12 @@ public class GameManager : MonoBehaviour
     {
         isPacmanInHome = true;
 
+        // 隐藏精灵
+        if (spiritFollow != null)
+        {
+            spiritFollow.HideSpirit();
+        }
+
         // 如果最后一个小孩被吃掉，且吃豆人回到home，则切换关卡
         if (lastChildEaten && LevelManager.Instance != null)
         {
@@ -210,6 +223,11 @@ public class GameManager : MonoBehaviour
     public void PacmanLeftHome()
     {
         isPacmanInHome = false;
+    }
+
+    public int GetCollectedChildrenCount()
+    {
+        return currentChildIndex;
     }
 
     public void PelletEaten(Pellet pellet)
