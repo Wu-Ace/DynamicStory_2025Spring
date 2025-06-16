@@ -3,7 +3,8 @@
   "sourceFiles": [
     "Room.yarn",
     "Level1.yarn",
-    "Level1End.yarn"
+    "Level1End.yarn",
+    "Level1End_1.yarn"
   ],
   "excludeFiles": [
     "**/*~/*"

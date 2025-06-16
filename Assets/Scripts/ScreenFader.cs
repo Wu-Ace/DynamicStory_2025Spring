@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class ScreenFader : MonoBehaviour
 {
     public CanvasGroup blackOverlay;
     public float fadeDuration = 1f;
+
+    // 添加淡出完成事件
+    public event Action OnFadeInComplete;
 
     public void StartBlack()
     {
@@ -23,5 +27,8 @@ public class ScreenFader : MonoBehaviour
         }
         blackOverlay.alpha = 0f;
         blackOverlay.gameObject.SetActive(false);
+
+        // 触发淡出完成事件
+        OnFadeInComplete?.Invoke();
     }
 }
