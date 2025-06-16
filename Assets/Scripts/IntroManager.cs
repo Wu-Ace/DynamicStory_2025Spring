@@ -7,7 +7,8 @@ public class IntroManager : MonoBehaviour
     [SerializeField] private GameManager gameManager;
 
     private bool hasPlayedIntro = false;
-    private bool hasWon = false;
+    private float gameTimer = 0f;
+    private const float TIMELINE_TRIGGER_TIME = 60f; // 1分钟 = 60秒
 
     public bool DeveloperMode_Win = false;
 
@@ -22,26 +23,23 @@ public class IntroManager : MonoBehaviour
 
     private void Update()
     {
-        // Check if the game has been won and the animation hasn't been played yet
-        if (!hasPlayedIntro && !hasWon)
+        if (!hasPlayedIntro)
         {
-            // Check if all pellets have been eaten
-            if (!gameManager.HasRemainingPellets())
+            // 更新游戏计时器
+            gameTimer += Time.deltaTime;
+
+            // 检查是否达到1分钟
+            if (gameTimer >= TIMELINE_TRIGGER_TIME)
             {
-                hasWon = true;
+                PlayCameraTimeline();
             }
         }
 
-        if (DeveloperMode_Win)
-        {
-            hasWon = true;
-        }
-
-        if (hasWon)
+        // 保留开发者模式选项
+        if (DeveloperMode_Win && !hasPlayedIntro)
         {
             PlayCameraTimeline();
         }
-
     }
 
     private void PlayCameraTimeline()

@@ -1859,6 +1859,7 @@ MonoBehaviour:
   children: []
   home: {fileID: 0}
   doors: []
+  spiritFollow: {fileID: 0}
 --- !u!4 &469897152
 Transform:
   m_ObjectHideFlags: 0
